@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>NERDIS - Live Audio Coding</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tone@14.8.49/build/Tone.js"></script>
+</head>
+<body>
+<h1>NERDIS - Live Audio Coding</h1>
+<div class="panel">
+<button id="initBtn">Init Audio</button>
+<button id="runBtn">Run ▶</button>
+<button id="stopBtn">Stop ■</button>
+</div>
+<textarea id="pythonCode"></textarea>
+<div class="panel">
+<button onclick="loadPreset('ambient')">Ambient</button>
+<button onclick="loadPreset('gamelan')">Gamelan</button>
+<button onclick="loadPreset('horor')">Horor</button>
+<button onclick="loadPreset('drum')">Drum</button>
+</div>
+<script src="main.js"></script>
+</body>
+</html>

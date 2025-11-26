@@ -1,0 +1,3 @@
+kick()
+hihat()
+snare()
