@@ -55,3 +55,9 @@ document.addEventListener("keydown",(e)=>{
 if(e.ctrlKey&&e.key==="Enter")document.getElementById("runBtn").click();
 if(e.ctrlKey&&e.key===".")document.getElementById("stopBtn").click();
 });
+
+
+document.getElementById("initBtn").onclick = async () => {
+  await Tone.start();
+  alert("Audio Engine Aktif ✅");
+};
