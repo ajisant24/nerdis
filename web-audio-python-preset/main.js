@@ -128,6 +128,40 @@ def pattern(notes, dur=0.3):
 
 def log(msg):
     _py_log(msg)
+`)pyodide.runPython(`
+from js import playNote, setBpm, startTransport, stopTransport, setReverb, pan, playSample, _py_log
+import math
+
+__bpm = 90
+__scheduler = []
+
+def set_bpm(n):
+    global __bpm
+    __bpm = n
+    setBpm(n)
+
+def play(note, dur=0.5):
+    playNote(note, dur)
+
+def play_sample(name):
+    playSample(name)
+
+def set_reverb(v):
+    setReverb(v)
+
+def pan_auto(v):
+    pan(v)
+
+def pattern(notes, dur=0.3):
+    for n in notes:
+        play(n, dur)
+
+def loop_safe(n, fn):
+    for _ in range(n):
+        fn()
+
+def log(msg):
+    _py_log(msg)
 `);
   pyReady = true;
   document.getElementById("runBtn").disabled = false;
