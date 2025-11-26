@@ -83,26 +83,48 @@ async function initPyodideAndBridge() {
   if (pyReady) return;
   pyodide = await loadPyodide();
   // expose our JS functions to Python easily via a tiny helper module
-  pyodide.runPython(`
+    pyodide.runPython(`
 from js import playNote, setBpm, startTransport, stopTransport, setReverb, pan, playSample, _py_log
+import time
+import math
+
+__bpm = 90
+
+def set_bpm(n):
+    global __bpm
+    __bpm = n
+    setBpm(n)
+
+def beat(sec=1):
+    time.sleep(60/__bpm * sec)
 
 def play(note, dur=0.5):
     playNote(note, dur)
+    beat(dur)
 
-def set_bpm(n):
-    setBpm(n)
+def loop(n, fn):
+    for _ in range(n):
+        fn()
 
-def start():
-    startTransport()
+def forever(fn):
+    while True:
+        fn()
 
-def stop():
-    stopTransport()
+def set_reverb(v):
+    setReverb(v)
 
-def set_reverb(s):
-    setReverb(s)
+def pan_auto(speed=1):
+    for i in range(100):
+        p = math.sin(i*0.1*speed)
+        pan(p)
+        time.sleep(0.05)
 
 def play_sample(name):
     playSample(name)
+
+def pattern(notes, dur=0.3):
+    for n in notes:
+        play(n, dur)
 
 def log(msg):
     _py_log(msg)
