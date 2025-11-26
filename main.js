@@ -36,7 +36,14 @@ def hihat(): drum("hihat")`);
 }
 
 initPy();
-document.getElementById("runBtn").onclick=()=>{pyodide.runPython(document.getElementById("pythonCode").value);};
+document.getElementById("runBtn").onclick = async () => {
+  await Tone.start();              // ✅ AKTIFKAN AUDIO CONTEXT
+  Tone.Transport.start();          // ✅ AKTIFKAN ENGINE AUDIO
+  pyodide.runPython(
+    document.getElementById("pythonCode").value
+  );
+};
+
 document.getElementById("stopBtn").onclick=()=>Tone.Transport.stop();
 
 async function loadPreset(n){
